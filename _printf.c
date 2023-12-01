@@ -72,7 +72,7 @@ int print_int(int arg)
     }
 
 
-    write(1, curr, len);
+    c_c += write(1, curr, len);
 
     free(curr);
 

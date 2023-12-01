@@ -5,7 +5,7 @@
  * struct print_special - prints
  * @printer - function to print
  */
-
+int _printf(const char *format, ...);
 typedef struct print_special
 {
     int (*printer)(va_list *);
@@ -18,6 +18,5 @@ void handle_char(va_list *args);
 int print_string(char *str);
 void handle_str(va_list *args);
 int handle_type(char c, prnt *printer);
-int _printf(char *format, ...);
 
 #endif

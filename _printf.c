@@ -209,11 +209,19 @@ int _printf(const char *format, ...)
     {
         if (format[i] == '%' && i + 1 < len)
         {
+        
             write(1, format + start, i - start);
             pass = handle_type(format[i + 1], &_printer);
             start = i + pass;
             i++;
             c_c += _printer.printer(&args) - pass + 1;
+
+        }
+        if (format[i] == '%' && (i + 1 == len || format[i + 1] == ' ') )
+        {
+            c_c--;
+            write(1, format + start, i - start);
+            start = i + 1;
         }
         c_c++;
     }

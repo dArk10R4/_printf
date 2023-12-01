@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
-#include <math.h>
 #include <unistd.h>
 
 /**
@@ -16,12 +15,27 @@ typedef struct print_special
 } prnt;
 
 /**
+ * pow10 - pow10
+ * @n: arg
+ * 
+ * Return: power
+*/
+unsigned _pow10(unsigned int n)
+{
+    unsigned pw = 1, i = 0;
+
+    for (; i < n; i++)
+        pw *= 10;
+    
+    return (pw);
+}
+
+/**
  * print_int - prints an integer
  * @arg: list of arguments
  *
  * Return: number of characters printed
  */
-
 int print_int(int arg)
 {
     unsigned int a = arg, tmp, len = 0, c_c = 0, i;
@@ -54,7 +68,7 @@ int print_int(int arg)
 
     for (i = 0; i < len; i++)
     {
-        curr[i] = (int)(a / pow(10, (len - 1 - i))) % 10 + '0';
+        curr[i] = (int)(a / _pow10(len - 1 - i)) % 10 + '0';
     }
 
 

@@ -227,5 +227,5 @@ int _printf(const char *format, ...)
     }
     write(1, format + start, i - start);
     va_end(args);
-    return (c_c);
+    return (c_c == 0 ? -1 : c_c);
 }

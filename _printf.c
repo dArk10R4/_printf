@@ -175,7 +175,7 @@ int _printf(const char *format, ...)
 {
     va_list args;
     int i;
-    int len, c_c = 0;
+    int len, c_c = 0, pass;
     int start = 0;
     prnt _printer;
 
@@ -193,11 +193,10 @@ int _printf(const char *format, ...)
         if (format[i] == '%' && i + 1 < len)
         {
             write(1, format + start, i - start);
-            start = i + handle_type(format[i + 1], &_printer);
-
-            c_c += _printer.printer(&args);
+            pass = handle_type(format[i + 1], &_printer);
+            start = i + pass;
+            c_c += _printer.printer(&args) - pass;
         }
-
         c_c++;
     }
     write(1, format + start, i - start);

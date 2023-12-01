@@ -95,7 +95,7 @@ int  handle_int(va_list *arg)
  */
 int default_handler()
 {
-    return (1);
+    return (0);
 }
 
 /**
@@ -121,7 +121,14 @@ int handle_char(va_list *args)
  */
 int print_string(char *str)
 {
-    int l = strlen(str);
+    int l;
+
+    if (str == NULL)
+        return (write(1, "(null)", 6));
+
+
+
+    l = strlen(str);
 
     return (write(1, str, l));
 }
@@ -133,6 +140,16 @@ int print_string(char *str)
 int handle_str(va_list *args)
 {
     return (print_string(va_arg(*args, char *)));
+}
+
+/**
+ * handle_prcnt - handles % sign
+ * 
+ * Return: number of char printed
+*/
+int handle_prcnt()
+{
+    return (write(1, "%", 1));
 }
 
 /**
@@ -156,8 +173,8 @@ int handle_type(char c, prnt *printer)
         printer->printer = handle_str;
         return (2);
     case '%':
-        printer->printer = default_handler;
-        return (1);
+        printer->printer = handle_prcnt;
+        return (2);
     default:
         printer->printer = default_handler;
     }
@@ -195,7 +212,8 @@ int _printf(const char *format, ...)
             write(1, format + start, i - start);
             pass = handle_type(format[i + 1], &_printer);
             start = i + pass;
-            c_c += _printer.printer(&args) - pass;
+            i++;
+            c_c += _printer.printer(&args) - pass + 1;
         }
         c_c++;
     }

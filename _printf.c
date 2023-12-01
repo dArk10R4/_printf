@@ -52,7 +52,6 @@ int print_int(int arg)
         a = -a;
         c_c++;
     }
-
     tmp = a;
 
     while (tmp > 0)
@@ -68,7 +67,8 @@ int print_int(int arg)
 
     for (i = 0; i < len; i++)
     {
-        curr[i] = (int)(a / _pow10(len - 1 - i)) % 10 + '0';
+        curr[i] = (int)(a / abs((int)_pow10(len - 1 - i)) % 10) + '0';
+        /*printf("reqem is %d i is %i\n", ((int)(a / _pow10(len - 1 - i)) % 10), i);*/
     }
 
 

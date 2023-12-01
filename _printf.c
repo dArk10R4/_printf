@@ -57,7 +57,6 @@ int print_int(int arg)
         curr[i] = (int)(a / pow(10, (len - 1 - i))) % 10 + '0';
     }
 
-    // printf("\n%s\n", curr);
 
     write(1, curr, len);
 
@@ -71,17 +70,18 @@ int print_int(int arg)
  * @arg: list of arguments
  * Return: number of characters printed
  */
-void handle_int(va_list *arg)
+int  handle_int(va_list *arg)
 {
-    print_int(va_arg(*arg, int));
+    return (print_int(va_arg(*arg, int)));
 }
 
 /**
  * default_handler - default handler
  * @a: arg
  */
-void default_handler(va_list *a)
+int default_handler()
 {
+    return (1);
 }
 
 /**
@@ -96,9 +96,9 @@ int print_char(char c)
  * handle_char - handles char
  * @args - list
  */
-void handle_char(va_list *args)
+int handle_char(va_list *args)
 {
-    print_char(va_arg(*args, int));
+    return (print_char(va_arg(*args, int)));
 }
 
 /**
@@ -116,9 +116,9 @@ int print_string(char *str)
  * handle_str - handles string
  * @args: list
  */
-void handle_str(va_list *args)
+int handle_str(va_list *args)
 {
-    print_string(va_arg(*args, char *));
+    return (print_string(va_arg(*args, char *)));
 }
 
 /**
@@ -183,8 +183,7 @@ int _printf(const char *format, ...)
 
             c_c += _printer.printer(&args);
         }
-        // putchar(format[i]);
-        // putchar('\n');
+
         c_c++;
     }
     write(1, format + start, i - start);

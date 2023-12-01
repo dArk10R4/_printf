@@ -17,16 +17,16 @@ typedef struct print_special
 /**
  * pow10 - pow10
  * @n: arg
- * 
+ *
  * Return: power
-*/
+ */
 unsigned _pow10(unsigned int n)
 {
     unsigned pw = 1, i = 0;
 
     for (; i < n; i++)
         pw *= 10;
-    
+
     return (pw);
 }
 
@@ -71,7 +71,6 @@ int print_int(int arg)
         /*printf("reqem is %d i is %i\n", ((int)(a / _pow10(len - 1 - i)) % 10), i);*/
     }
 
-
     c_c += write(1, curr, len);
 
     free(curr);
@@ -84,7 +83,7 @@ int print_int(int arg)
  * @arg: list of arguments
  * Return: number of characters printed
  */
-int  handle_int(va_list *arg)
+int handle_int(va_list *arg)
 {
     return (print_int(va_arg(*arg, int)));
 }
@@ -126,8 +125,6 @@ int print_string(char *str)
     if (str == NULL)
         return (write(1, "(null)", 6));
 
-
-
     l = strlen(str);
 
     return (write(1, str, l));
@@ -144,9 +141,9 @@ int handle_str(va_list *args)
 
 /**
  * handle_prcnt - handles % sign
- * 
+ *
  * Return: number of char printed
-*/
+ */
 int handle_prcnt()
 {
     return (write(1, "%", 1));
@@ -207,22 +204,25 @@ int _printf(const char *format, ...)
 
     for (i = 0; i < len; i++)
     {
-        if (format[i] == '%' && i + 1 < len)
+        if (format[i] == '%' )
         {
-        
-            write(1, format + start, i - start);
-            pass = handle_type(format[i + 1], &_printer);
-            start = i + pass;
-            i++;
-            c_c += _printer.printer(&args) - pass + 1;
+            if (i + 1 < len)
+            {
 
+                write(1, format + start, i - start);
+                pass = handle_type(format[i + 1], &_printer);
+                start = i + pass;
+                i++;
+                c_c += _printer.printer(&args) - pass + 1;
+            }
+            else
+            {
+                c_c--;
+                write(1, format + start, i - start);
+                start = i + 1;
+            }
         }
-        if (format[i] == '%' && (i + 1 == len || format[i + 1] == ' ') )
-        {
-            c_c--;
-            write(1, format + start, i - start);
-            start = i + 1;
-        }
+        
         c_c++;
     }
     write(1, format + start, i - start);

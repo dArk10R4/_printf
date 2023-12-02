@@ -62,20 +62,20 @@ len++;
 
 curr = malloc(len * sizeof(char));
 
-    if (!curr)
-        return (0);
+if (!curr)
+return (0);
 
-    for (i = 0; i < len; i++)
-    {
-        curr[i] = (int)(a / abs((int)_pow10(len - 1 - i)) % 10) + '0';
-        /*printf("reqem is %d i is %i\n", ((int)(a / _pow10(len - 1 - i)) % 10), i);*/
-    }
+for (i = 0; i < len; i++)
+{
+curr[i] = (int)(a / abs((int)_pow10(len - 1 - i)) % 10) + '0';
+/*printf("reqem is %d i is %i\n", ((int)(a / _pow10(len - 1 - i)) % 10), i);*/
+}
 
-    c_c += write(1, curr, len);
+c_c += write(1, curr, len);
 
-    free(curr);
+free(curr);
 
-    return (c_c);
+return (c_c);
 }
 
 /**
@@ -85,7 +85,7 @@ curr = malloc(len * sizeof(char));
  */
 int handle_int(va_list *arg)
 {
-    return (print_int(va_arg(*arg, int)));
+return (print_int(va_arg(*arg, int)));
 }
 
 /**
@@ -94,7 +94,7 @@ int handle_int(va_list *arg)
  */
 int default_handler()
 {
-    return (0);
+return (0);
 }
 
 /**
@@ -103,7 +103,7 @@ int default_handler()
  */
 int print_char(char c)
 {
-    return (write(1, &c, 1));
+return (write(1, &c, 1));
 }
 /**
  * handle_char - handles char
@@ -111,7 +111,7 @@ int print_char(char c)
  */
 int handle_char(va_list *args)
 {
-    return (print_char(va_arg(*args, int)));
+return (print_char(va_arg(*args, int)));
 }
 
 /**
@@ -120,14 +120,14 @@ int handle_char(va_list *args)
  */
 int print_string(char *str)
 {
-    int l;
+int l;
 
-    if (str == NULL)
-        return (write(1, "(null)", 6));
+if (str == NULL)
+return (write(1, "(null)", 6));
 
-    l = strlen(str);
+l = strlen(str);
 
-    return (write(1, str, l));
+return (write(1, str, l));
 }
 
 /**
@@ -136,7 +136,7 @@ int print_string(char *str)
  */
 int handle_str(va_list *args)
 {
-    return (print_string(va_arg(*args, char *)));
+return (print_string(va_arg(*args, char *)));
 }
 
 /**
@@ -146,7 +146,7 @@ int handle_str(va_list *args)
  */
 int handle_prcnt()
 {
-    return (write(1, "%", 1));
+return (write(1, "%", 1));
 }
 
 /**
@@ -157,26 +157,26 @@ int handle_prcnt()
 
 int handle_type(char c, prnt *printer)
 {
-    switch (c)
-    {
-    case 'd':
-    case 'i':
-        printer->printer = handle_int;
-        return (2);
-    case 'c':
-        printer->printer = handle_char;
-        return (2);
-    case 's':
-        printer->printer = handle_str;
-        return (2);
-    case '%':
-        printer->printer = handle_prcnt;
-        return (2);
-    default:
-        printer->printer = default_handler;
-    }
+switch (c)
+{
+case 'd':
+case 'i':
+printer->printer = handle_int;
+return (2);
+case 'c':
+printer->printer = handle_char;
+return (2);
+case 's':
+printer->printer = handle_str;
+return (2);
+case '%':
+printer->printer = handle_prcnt;
+return (2);
+default:
+printer->printer = default_handler;
+}
 
-    return (0);
+return (0);
 }
 
 /**
@@ -187,47 +187,47 @@ int handle_type(char c, prnt *printer)
 
 int _printf(const char *format, ...)
 {
-    va_list args;
-    int i;
-    int len, c_c = 0, pass;
-    int start = 0;
-    prnt _printer;
+va_list args;
+int i;
+int len, c_c = 0, pass;
+int start = 0;
+prnt _printer;
 
-    _printer.printer = handle_int;
+_printer.printer = handle_int;
 
-    if (format == NULL)
-        return (-1);
+if (format == NULL)
+return (-1);
 
-    len = strlen(format);
+len = strlen(format);
 
-    va_start(args, format);
+va_start(args, format);
 
-    for (i = 0; i < len; i++)
-    {
-        if (format[i] == '%' )
-        {
-            if (i + 1 < len)
-            {
+for (i = 0; i < len; i++)
+{
+if (format[i] == '%' )
+{
+if (i + 1 < len)
+{
 
-                write(1, format + start, i - start);
-                pass = handle_type(format[i + 1], &_printer);
-                start = i + pass;
-                i++;
-                c_c += _printer.printer(&args) - pass + 1;
-            }
-            else
-            {
-                c_c--;
-                write(1, format + start, i - start);
-                start = i + 1;
-            }
-        }
+write(1, format + start, i - start);
+pass = handle_type(format[i + 1], &_printer);
+start = i + pass;
+i++;
+c_c += _printer.printer(&args) - pass + 1;
+}
+else
+{
+c_c--;
+write(1, format + start, i - start);
+start = i + 1;
+}
+}
         
-        c_c++;
-    }
-    write(1, format + start, i - start);
-    va_end(args);
-    return (c_c == 0 ? -1 : c_c);
+c_c++;
+}
+write(1, format + start, i - start);
+va_end(args);
+return (c_c == 0 ? -1 : c_c);
 }
 
 

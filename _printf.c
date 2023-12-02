@@ -11,7 +11,7 @@
 
 typedef struct print_special
 {
-    int (*printer)(va_list *);
+int (*printer)(va_list *);
 } prnt;
 
 /**
@@ -20,14 +20,14 @@ typedef struct print_special
  *
  * Return: power
  */
-unsigned _pow10(unsigned int n)
+unsigned int _pow10(unsigned int n)
 {
-    unsigned pw = 1, i = 0;
+unsigned int pw = 1, i = 0;
 
-    for (; i < n; i++)
-        pw *= 10;
+for (; i < n; i++)
+pw *= 10;
 
-    return (pw);
+return (pw);
 }
 
 /**
@@ -38,29 +38,29 @@ unsigned _pow10(unsigned int n)
  */
 int print_int(int arg)
 {
-    unsigned int a = arg, tmp, len = 0, c_c = 0, i;
-    char *curr;
+unsigned int a = arg, tmp, len = 0, c_c = 0, i;
+char *curr;
 
-    if (arg == 0)
-    {
-        return (write(1, "0", 1));
-    }
+if (arg == 0)
+{
+return (write(1, "0", 1));
+}
 
-    if (arg < 0)
-    {
-        write(1, "-", 1);
-        a = -a;
-        c_c++;
-    }
-    tmp = a;
+if (arg < 0)
+{
+write(1, "-", 1);
+a = -a;
+c_c++;
+}
+tmp = a;
 
-    while (tmp > 0)
-    {
-        tmp /= 10;
-        len++;
-    }
+while (tmp > 0)
+{
+tmp /= 10;
+len++;
+}
 
-    curr = malloc(len * sizeof(char));
+curr = malloc(len * sizeof(char));
 
     if (!curr)
         return (0);

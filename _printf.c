@@ -60,7 +60,7 @@ tmp /= 10;
 len++;
 }
 
-curr = malloc(len * sizeof(char));
+curr = malloc(len *sizeof(char));
 
 if (!curr)
 return (0);
@@ -92,7 +92,7 @@ return (print_int(va_arg(*arg, int)));
  * default_handler - default handler
  * @a: arg
  */
-int default_handler()
+int default_handler(void)
 {
 return (0);
 }
@@ -144,7 +144,7 @@ return (print_string(va_arg(*args, char *)));
  *
  * Return: number of char printed
  */
-int handle_prcnt()
+int handle_prcnt(void)
 {
 return (write(1, "%", 1));
 }
@@ -204,7 +204,7 @@ va_start(args, format);
 
 for (i = 0; i < len; i++)
 {
-if (format[i] == '%' )
+if (format[i] == '%')
 {
 if (i + 1 < len)
 {
@@ -222,7 +222,7 @@ write(1, format + start, i - start);
 start = i + 1;
 }
 }
-        
+
 c_c++;
 }
 write(1, format + start, i - start);

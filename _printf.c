@@ -5,23 +5,24 @@
 #include <unistd.h>
 
 /**
- * struct print_special - Function pointer structure for handling print types
- * @printer: Function pointer for printing
+ * struct print_special - prints
+ * @printer - function to print
  */
+
 typedef struct print_special
 {
     int (*printer)(va_list *);
 } prnt;
 
 /**
- * _pow10 - Calculate 10 to the power of n
- * @n: Exponent
+ * pow10 - pow10
+ * @n: arg
  *
- * Return: Result of 10 to the power of n
+ * Return: power
  */
-unsigned int _pow10(unsigned int n)
+unsigned _pow10(unsigned int n)
 {
-    unsigned int pw = 1, i = 0;
+    unsigned pw = 1, i = 0;
 
     for (; i < n; i++)
         pw *= 10;
@@ -30,10 +31,10 @@ unsigned int _pow10(unsigned int n)
 }
 
 /**
- * print_int - Print an integer
- * @arg: List of arguments
+ * print_int - prints an integer
+ * @arg: list of arguments
  *
- * Return: Number of characters printed
+ * Return: number of characters printed
  */
 int print_int(int arg)
 {
@@ -41,7 +42,9 @@ int print_int(int arg)
     char *curr;
 
     if (arg == 0)
+    {
         return (write(1, "0", 1));
+    }
 
     if (arg < 0)
     {
@@ -57,7 +60,7 @@ int print_int(int arg)
         len++;
     }
 
-    curr = malloc((len + 1) * sizeof(char));
+    curr = malloc(len * sizeof(char));
 
     if (!curr)
         return (0);
@@ -65,9 +68,8 @@ int print_int(int arg)
     for (i = 0; i < len; i++)
     {
         curr[i] = (int)(a / abs((int)_pow10(len - 1 - i)) % 10) + '0';
+        /*printf("reqem is %d i is %i\n", ((int)(a / _pow10(len - 1 - i)) % 10), i);*/
     }
-
-    curr[len] = '\0'; /* Null-terminate the string */
 
     c_c += write(1, curr, len);
 
@@ -77,10 +79,9 @@ int print_int(int arg)
 }
 
 /**
- * handle_int - Handle an integer argument
- * @arg: List of arguments
- *
- * Return: Number of characters printed
+ * handle_int - handles an integer
+ * @arg: list of arguments
+ * Return: number of characters printed
  */
 int handle_int(va_list *arg)
 {
@@ -88,32 +89,25 @@ int handle_int(va_list *arg)
 }
 
 /**
- * default_handler - Default handler
- *
- * Return: Always returns 0
+ * default_handler - default handler
+ * @a: arg
  */
-int default_handler(va_list *arg)
+int default_handler()
 {
-    (void)arg; /* Unused parameter */
     return (0);
 }
 
 /**
- * print_char - Print a single character
- * @c: Character to print
- *
- * Return: Number of characters printed
+ * print_char - prints a char
+ * @c: char to print
  */
 int print_char(char c)
 {
     return (write(1, &c, 1));
 }
-
 /**
- * handle_char - Handle a character argument
- * @args: List of arguments
- *
- * Return: Number of characters printed
+ * handle_char - handles char
+ * @args - list
  */
 int handle_char(va_list *args)
 {
@@ -121,10 +115,8 @@ int handle_char(va_list *args)
 }
 
 /**
- * print_string - Print a string
- * @str: String to print
- *
- * Return: Number of characters printed
+ * print_string - prints string
+ * @s: string
  */
 int print_string(char *str)
 {
@@ -139,10 +131,8 @@ int print_string(char *str)
 }
 
 /**
- * handle_str - Handle a string argument
- * @args: List of arguments
- *
- * Return: Number of characters printed
+ * handle_str - handles string
+ * @args: list
  */
 int handle_str(va_list *args)
 {
@@ -150,23 +140,21 @@ int handle_str(va_list *args)
 }
 
 /**
- * handle_prcnt - Handle the '%' sign
+ * handle_prcnt - handles % sign
  *
- * Return: Number of characters printed
+ * Return: number of char printed
  */
-int handle_prcnt(va_list *args)
+int handle_prcnt()
 {
-    (void)args; /* Unused parameter */
     return (write(1, "%", 1));
 }
 
 /**
- * handle_type - Handle a format specifier
- * @c: Format specifier
- * @printer: Pointer to the structure containing the function pointer
- *
- * Return: Number of characters to skip (including the format specifier)
+ * handle_type - handles a type
+ * @c: list of arguments
+ * Return: number of characters printed
  */
+
 int handle_type(char c, prnt *printer)
 {
     switch (c)
@@ -188,19 +176,20 @@ int handle_type(char c, prnt *printer)
         printer->printer = default_handler;
     }
 
-    return (1); /* Return 1 to account for the character after '%' */
+    return (0);
 }
 
 /**
- * _printf - Custom printf function
- * @format: Format string with optional format specifiers
- *
- * Return: Number of characters printed
+ * _printf - prints anything
+ * @format: list of types of arguments passed to the function
+ * Return: number of characters printed
  */
+
 int _printf(const char *format, ...)
 {
     va_list args;
-    int i, len, c_c = 0, pass;
+    int i;
+    int len, c_c = 0, pass;
     int start = 0;
     prnt _printer;
 
@@ -215,10 +204,11 @@ int _printf(const char *format, ...)
 
     for (i = 0; i < len; i++)
     {
-        if (format[i] == '%')
+        if (format[i] == '%' )
         {
             if (i + 1 < len)
             {
+
                 write(1, format + start, i - start);
                 pass = handle_type(format[i + 1], &_printer);
                 start = i + pass;
@@ -232,11 +222,12 @@ int _printf(const char *format, ...)
                 start = i + 1;
             }
         }
-
+        
         c_c++;
     }
     write(1, format + start, i - start);
     va_end(args);
     return (c_c == 0 ? -1 : c_c);
 }
+
 

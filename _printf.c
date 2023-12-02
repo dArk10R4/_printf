@@ -92,7 +92,7 @@ return (print_int(va_arg(*arg, int)));
  * default_handler - default handler
  * @a: arg
  */
-int default_handler(void)
+int default_handler()
 {
 return (0);
 }
@@ -144,7 +144,7 @@ return (print_string(va_arg(*args, char *)));
  *
  * Return: number of char printed
  */
-int handle_prcnt(void)
+int handle_prcnt()
 {
 return (write(1, "%", 1));
 }

@@ -3,7 +3,16 @@
 #include <stdarg.h>
 #include <string.h>
 #include <unistd.h>
-#include "main.h"
+
+/**
+ * struct print_special - prints
+ * @printer - function to print
+ */
+
+typedef struct print_special
+{
+int (*printer)(va_list *);
+} prnt;
 
 /**
  * pow10 - pow10

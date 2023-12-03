@@ -15,12 +15,12 @@ int (*printer)(va_list *);
 
 int _printf(const char *format, ...);
 int print_int(int arg);
-void handle_int(va_list *arg);
-void default_handler(va_list *a);
+int handle_int(va_list *arg);
+int default_handler(va_list *a);
 int print_char(char c);
-void handle_char(va_list *args);
+int handle_char(va_list *args);
 int print_string(char *str);
-void handle_str(va_list *args);
+int handle_str(va_list *args);
 int handle_type(char c, prnt *printer);
 
 #endif

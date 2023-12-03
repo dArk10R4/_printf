@@ -16,7 +16,6 @@ int (*printer)(va_list *);
 int _printf(const char *format, ...);
 int print_int(int arg);
 int handle_int(va_list *arg);
-int default_handler(va_list *a);
 int print_char(char c);
 int handle_char(va_list *args);
 int print_string(char *str);

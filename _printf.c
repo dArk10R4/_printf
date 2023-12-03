@@ -12,8 +12,9 @@
  * 
  * Return: 0
  */
-int default_handler(void)
+int default_handler(va_list *a)
 {
+    (void)a;
     return (0);
 }
 
@@ -24,8 +25,9 @@ int default_handler(void)
  *
  * Return: number of char printed
  */
-int handle_prcnt(void)
+int handle_prcnt(va_list * a)
 {
+    (void)(a);
     return (write(1, "%", 1));
 }
 

@@ -1,5 +1,9 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <string.h>
 #include <unistd.h>
-
+#include "main.h"
 /**
  * pow10 - pow10
  * @n: arg

@@ -2,15 +2,13 @@
 #define MAIN_H
 #include <unistd.h>
 #include <stdarg.h>
-
 /**
  * struct print_special - prints
- * @printer - function to print
+ * @printer: - function to print
  */
-
 typedef struct print_special
 {
-int (*printer)(va_list *);
+	int (*printer)(va_list *);
 } prnt;
 
 int _printf(const char *format, ...);

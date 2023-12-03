@@ -14,7 +14,7 @@ Format - is a character string.
 The format string is composed of zero or more directives: ordinary characters (not %), which are copied unchanged to the output stream; and conversion specifications, each of which results in fetching zero or more sub sequent arguments. 
 
 .SH DESCRIPTION
-Function produces output according to a format. We handle the conversion specifiers described in OPTIONS.
+The function produces an output according to a format. We handle the conversion specifiers described in OPTIONS.
 
 .TP
 Don't reproduced the buffer handling of the C library printf function. Don't handled: the flag characters, field width, precision, the length modifiers

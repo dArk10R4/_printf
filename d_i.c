@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include "main.h"
 /**
- * pow10 - pow10
+ * _pow10 - pow10
  * @n: arg
  *
  * Return: power

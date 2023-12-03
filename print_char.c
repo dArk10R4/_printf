@@ -14,9 +14,11 @@ int print_char(char c)
 {
     return (write(1, &c, 1));
 }
+
+
 /**
  * handle_char - handles char
- * @args - list
+ * @args:  list
  * 
  * Return: 1
  */

@@ -9,6 +9,7 @@
 
 /**
  * default_handler - default handler
+ * @a: dummy
  * 
  * Return: 0
  */
@@ -22,6 +23,7 @@ int default_handler(va_list *a)
 
 /**
  * handle_prcnt - handles % sign
+ * @a: dummy
  *
  * Return: number of char printed
  */
